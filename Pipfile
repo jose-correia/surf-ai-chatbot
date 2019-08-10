@@ -5,17 +5,13 @@ name = "pypi"
 
 [packages]
 Flask = "*"
-python-dotenv = "*"
-Flask-Session = "*"
-Flask-Login = "*"
-Flask-SQLAlchemy = "*"
-"psycopg2" = "*"
-"psycopg2-binary" = "*"
-ipython = "*"
-"0.2" = {git = "https://unbabel-integrations:cTT2UHkZMXU6CTLsxoFZBt9e@gitlab.com/Unbabel/argonath-sdk.git", ref = "0.2"}
+Flask-RESTful = "*"
+Flask-Script = "*"
 Flask-SeaSurf = "*"
-Flask-Migrate = "*"
-Flask-Testing = "*"
+python-dotenv = "*"
+Werkzeug = "*"
+python-dotenv = "*"
+ipython = "*"
 coverage = "*"
 factory_boy = "*"
 
