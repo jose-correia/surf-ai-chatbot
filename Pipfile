@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+Flask = "*"
+python-dotenv = "*"
+Flask-Session = "*"
+Flask-Login = "*"
+Flask-SQLAlchemy = "*"
+"psycopg2" = "*"
+"psycopg2-binary" = "*"
+ipython = "*"
+"0.2" = {git = "https://unbabel-integrations:cTT2UHkZMXU6CTLsxoFZBt9e@gitlab.com/Unbabel/argonath-sdk.git", ref = "0.2"}
+Flask-SeaSurf = "*"
+Flask-Migrate = "*"
+Flask-Testing = "*"
+coverage = "*"
+factory_boy = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
