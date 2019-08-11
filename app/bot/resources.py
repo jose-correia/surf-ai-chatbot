@@ -13,7 +13,7 @@ class WebhookVerification(Resource):
         if request.args.get('hub.verify_token') == current_app.config.get('WEBHOOK_VERIFICATION_TOKEN'):
             return request.args.get('hub.challenge')
 
-        return "Failed to validate"
+        return "Verification failed"
 
 
 class ReceiveEvent(Resource):
