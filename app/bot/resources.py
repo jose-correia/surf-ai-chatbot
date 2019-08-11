@@ -1,6 +1,7 @@
 from flask_restful import Resource
 from flask import request, Response, current_app
 import json
+import requests
 
 import logging
 logger = logging.getLogger(__name__)
@@ -43,7 +44,7 @@ class ReceiveEvent(Resource):
             response['message']['text'] = 'Hello world'
 
             access_token = current_app.config.get('ACCESS_TOKEN')
-            r = request.post(
+            r = requests.post(
                 'https://graph.facebook.com/v2.6/me/messages?access_token=' + access_token, json=response)
         return Response(response="EVENT RECEIVED",status=200)
 
