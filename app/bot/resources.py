@@ -53,6 +53,8 @@ class ReceiveDevEvent(Resource):
         # custom route for local development
         data = json.loads(request.data.decode('utf-8'))
 
+        logger.error('Dev Event')
+
         user_message = data['entry'][0]['messaging'][0]['message']['text']
         user_id = data['entry'][0]['messaging'][0]['sender']['id']
         response = {
