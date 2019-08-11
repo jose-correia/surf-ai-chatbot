@@ -13,6 +13,7 @@ python-dotenv = "*"
 ipython = "*"
 coverage = "*"
 factory_boy = "*"
+gunicorn = "*"
 
 [dev-packages]
 
