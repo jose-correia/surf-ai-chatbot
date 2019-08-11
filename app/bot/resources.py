@@ -30,6 +30,8 @@ class ReceiveEvent(Resource):
     def post(self):
         data = json.loads(request.data.decode('utf-8'))
 
+        logger.error(data)
+
         for entry in data['entry']:
             user_message = entry['messaging'][0]['message']['text']
             user_id = entry['messaging'][0]['sender']['id']
