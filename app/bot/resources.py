@@ -39,7 +39,10 @@ class ReceiveEvent(Resource):
                 'recipient': {'id': user_id},
                 'message': {}
             }
-            response['message']['text'] = handle_message(user_id, user_message)
+            #response['message']['text'] = handle_message(user_id, user_message)
+            response['message']['text'] = 'Hello world'
+
+            access_token = current_app.config.get('ACCESS_TOKEN')
             r = request.post(
                 'https://graph.facebook.com/v2.6/me/messages/?access_token=' + access_token, json=response)
         return Response(response="EVENT RECEIVED",status=200)

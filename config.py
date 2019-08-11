@@ -13,7 +13,8 @@ class Config:
     APP_ENV = os.environ.get('APP_ENV', 'development')
     SECRET_KEY = os.environ.get('SECRET_KEY')
     VERIFY_TOKEN = os.environ.get('VERIFY_TOKEN')
-    
+    ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
+
     DEBUG = False
     TESTING = False
 
