@@ -40,8 +40,7 @@ class ReceiveEvent(Resource):
                 'message': {}
             }
             logger.error(user_message)
-            #response['message']['text'] = handle_message(user_id, user_message)
-            response['message']['text'] = 'Hello world'
+            response['message']['text'] = handle_message(user_id, user_message)
 
             access_token = current_app.config.get('ACCESS_TOKEN')
             r = requests.post(
