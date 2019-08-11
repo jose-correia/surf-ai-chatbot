@@ -33,7 +33,7 @@ class ReceiveEvent(Resource):
         data = json.loads(request.data.decode('utf-8'))
 
         for entry in data['entry']:
-            user_message = entry['messaging'][0]['message']
+            user_message = entry['messaging'][0]['message']['text']
             user_id = entry['messaging'][0]['sender']['id']
             response = {
                 'recipient': {'id': user_id},
