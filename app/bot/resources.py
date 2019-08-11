@@ -28,10 +28,11 @@ class WebhookVerification(Resource):
 class ReceiveEvent(Resource):
 
     def post(self):
+        logger.error('Received event')
         data = json.loads(request.data.decode('utf-8'))
 
         for entry in data['entry']:
-            user_message = entry['messaging'][0]['message']['text']
+            user_message = entry['messaging'][0]['message']
             user_id = entry['messaging'][0]['sender']['id']
             response = {
                 'recipient': {'id': user_id},
