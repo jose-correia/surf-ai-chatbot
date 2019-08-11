@@ -18,7 +18,7 @@ $ python manage.py runserver
 ```
 
 Required environmental variables:
-````
+```
 SECRET_KEY=" " - random
 
 APP_ENV=" " - development|testing|production
@@ -27,6 +27,6 @@ VERIFY_TOKEN=" " - random
 ACCESS_TOKEN=" " - provided by Facebook
 ```
 
-I recommend using a cloud service like Heroku to deploy the application.
+I recommend using a cloud service like Heroku to deploy the application, where you can create a link to the Github repository, making Continuous Delivery possible.
 
-After setting the link between the Heroku application, you have to follow the steps in the [Messenger Platform](https://developers.facebook.com/docs/messenger-platform/introduction) guide in order to create the Facebook Application
+Finally you have to follow the steps in the [Messenger Platform](https://developers.facebook.com/docs/messenger-platform/introduction) guide in order to create the Facebook Application and setup the webhook.
