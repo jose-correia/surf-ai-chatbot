@@ -12,7 +12,7 @@ class Config:
 
     APP_ENV = os.environ.get('APP_ENV', 'development')
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    WEBHOOK_VERIFICATION_TOKEN = os.environ.get('WEBHOOK_VERIFICATION_TOKEN')
+    VERIFY_TOKEN = os.environ.get('VERIFY_TOKEN')
     
     DEBUG = False
     TESTING = False

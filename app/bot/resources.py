@@ -10,7 +10,7 @@ def handle_message(user_id, user_message):
 class WebhookVerification(Resource):
 
     def get(self):
-        if request.args.get('hub.verify_token') == current_app.config.get('WEBHOOK_VERIFICATION_TOKEN'):
+        if request.args.get('hub.mode') == 'subscribe' and request.args.get('hub.verify_token') == current_app.config.get('VERIFY_TOKEN'):
             return request.args.get('hub.challenge')
 
         return "Verification failed"
