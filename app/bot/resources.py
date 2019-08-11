@@ -2,6 +2,9 @@ from flask_restful import Resource
 from flask import request, Response, current_app
 import json
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 def handle_message(user_id, user_message):
     # DO SOMETHING with the user_message ... ¯\_(ツ)_/¯
@@ -10,10 +13,16 @@ def handle_message(user_id, user_message):
 class WebhookVerification(Resource):
 
     def get(self):
-        if request.args.get('hub.mode') == 'subscribe' and request.args.get('hub.verify_token') == current_app.config.get('VERIFY_TOKEN'):
-            return request.args.get('hub.challenge')
+        hub_mode = request.args.get('hub.mode')
+        verify_token = request.args.get('hub.verify_token')
+        challenge = request.args.get('hub.challenge')
 
-        return Response(response="Verification failed",status=401)
+        if hub_mode == 'subscribe' and verify_token == current_app.config.get('VERIFY_TOKEN'):
+            logger.error(f'Received token: {verify_token} and challenge: {challenge}')
+            return Response(response=challenge, status=200)
+        
+        logger.error('Failed to validade')
+        return Response(response="Verification failed",status=403)
 
 
 class ReceiveEvent(Resource):
