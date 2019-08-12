@@ -40,6 +40,7 @@ class ReceiveEvent(Resource):
                 forecast = IntentHandler.get_forecast_based_on_intent(intent)
             else:
                 forecast = None
+                
             # send intent response
             MessageHandler.send_message(user_id, intent.fulfillment_text)
 
