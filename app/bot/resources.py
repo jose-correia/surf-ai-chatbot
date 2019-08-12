@@ -1,9 +1,9 @@
 from flask_restful import Resource
 from flask import request, Response, current_app
 import json
-import requests
 
 from app.handlers.message_handler import MessageHandler
+from app.handlers.intent_handler import IntentHandler
 
 import logging
 logger = logging.getLogger(__name__)
@@ -33,16 +33,14 @@ class ReceiveEvent(Resource):
         for entry in data['entry']:
             user_message = entry['messaging'][0]['message']['text']
             user_id = entry['messaging'][0]['sender']['id']
-            response = {
-                'recipient': {'id': user_id},
-                'message': {}
-            }
-            logger.error(user_message)
-            response['message']['text'] = MessageHandler.handle_message(user_id, user_message)
+            
+            intent = IntentHandler.detect_intent(user_id, user_message)
 
-            access_token = current_app.config.get('ACCESS_TOKEN')
-            r = requests.post(
-                'https://graph.facebook.com/v2.6/me/messages?access_token=' + access_token, json=response)
+            # get data based on intent
+            
+            # send intent response
+            response = intent.fulfillment_text
+            MessageHandler.send_message(user_id, response)
         return Response(response="EVENT RECEIVED",status=200)
 
 
@@ -56,10 +54,10 @@ class ReceiveDevEvent(Resource):
 
         user_message = data['entry'][0]['messaging'][0]['message']['text']
         user_id = data['entry'][0]['messaging'][0]['sender']['id']
-        response = {
-            'recipient': {'id': user_id},
-            'message': {'text': handle_message(user_id, user_message)}
-        }
+        
+        intent = IntentHandler.detect_intent(user_id, user_message)
+
+        response = intent.fulfillment_text
         return Response(
             response=json.dumps(response),
             status=200,
