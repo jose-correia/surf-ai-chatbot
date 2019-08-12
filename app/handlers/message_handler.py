@@ -6,7 +6,7 @@ class MessageHandler(object):
     @classmethod
     def handle_message(cls, user_id, message):
 
-        detected_intent = DetectIntentService(user_id, text, 'en').call()
+        detected_intent = DetectIntentService(user_id, message, 'en').call()
         
         # send intent name to IntentHandler
             # intent handler builds params and location based on the detected intent
