@@ -15,7 +15,7 @@ _mailinglist
 .pytest_cache/
 .idea/
 __pycache__/
-
+gcp_service_account.json
 .vscode/
 # Coverage reports
 htmlcov/
