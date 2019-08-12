@@ -3,13 +3,11 @@ from flask import request, Response, current_app
 import json
 import requests
 
+from app.handlers.message_handler import MessageHandler
+
 import logging
 logger = logging.getLogger(__name__)
 
-
-def handle_message(user_id, user_message):
-    # DO SOMETHING with the user_message ... ¯\_(ツ)_/¯
-    return f"Hello {user_id} ! You just sent me : {user_message}"
 
 class WebhookVerification(Resource):
 
@@ -40,7 +38,7 @@ class ReceiveEvent(Resource):
                 'message': {}
             }
             logger.error(user_message)
-            response['message']['text'] = handle_message(user_id, user_message)
+            response['message']['text'] = MessageHandler.handle_message(user_id, user_message)
 
             access_token = current_app.config.get('ACCESS_TOKEN')
             r = requests.post(
