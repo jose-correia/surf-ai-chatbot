@@ -12,6 +12,8 @@ logger = logging.getLogger(__name__)
 class WebhookVerification(Resource):
 
     def get(self):
+        logger.error('Received verification request')
+        
         hub_mode = request.args.get('hub.mode')
         verify_token = request.args.get('hub.verify_token')
         challenge = request.args.get('hub.challenge')
@@ -40,7 +42,7 @@ class ReceiveEvent(Resource):
                 forecast = IntentHandler.get_forecast_based_on_intent(intent)
             else:
                 forecast = None
-                
+
             # send intent response
             MessageHandler.send_message(user_id, intent.fulfillment_text)
 
