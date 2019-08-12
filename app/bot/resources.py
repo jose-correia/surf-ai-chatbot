@@ -35,12 +35,18 @@ class ReceiveEvent(Resource):
             user_id = entry['messaging'][0]['sender']['id']
             
             intent = IntentHandler.detect_intent(user_id, user_message)
-
-            # get data based on intent
             
+            if intent.intent.display_name not in current_app.config.get('NO_FORECAST_RESPONSE_INTENTS'):
+                forecast = IntentHandler.get_forecast_based_on_intent(intent)
+            else:
+                forecast = None
             # send intent response
-            response = intent.fulfillment_text
-            MessageHandler.send_message(user_id, response)
+            MessageHandler.send_message(user_id, intent.fulfillment_text)
+
+            # send data
+            if forecast:
+                MessageHandler.send_message(user_id, forecast)
+
         return Response(response="EVENT RECEIVED",status=200)
 
 

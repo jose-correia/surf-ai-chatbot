@@ -20,6 +20,8 @@ class Config:
 
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = join(dirname(__file__), os.environ["GOOGLE_SERVICE_ACCOUNT_KEYS"])
 
+    STORMGLASS_URL = os.environ.get('STORMGLASS_URL')
+    STORMGLASS_API_KEY = os.environ.get('STORMGLASS_API_KEY')
 
     DEBUG = False
     TESTING = False
@@ -28,6 +30,27 @@ class Config:
 
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)
     SESSION_COOKIE_NAME = 'session'
+
+    LOCATION_INTENTS = ['Location Forecast Intent']
+
+    LOCATION_AND_PARAMS_INTENTS = ['Specific Weather Parameters Intent']  
+
+    NO_FORECAST_RESPONSE_INTENTS = ['Default Welcome Intent', 'Default Fallback Intent']
+    
+    SUPPORTED_LOCATIONS = {
+        'Costa da Caparica': {
+            'latitude': 38.612310,
+            'longitude': -9.216585
+        },
+        'Carcavelos': {
+            'latitude': 38.678642,
+            'longitude': -9.336061
+        },
+        'Guincho': {
+            'latitude': 28.926815,
+            'longitude': -13.634419
+        }
+    }
 
     @classmethod
     def init_app(cls, app):
