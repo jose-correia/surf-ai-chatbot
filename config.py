@@ -1,6 +1,9 @@
 import os
+from os.path import join, dirname
 from datetime import timedelta
 from dotenv import load_dotenv
+import logging
+from logging.handlers import SysLogHandler
 
 
 if os.path.isfile('.env'):
@@ -15,6 +18,9 @@ class Config:
     VERIFY_TOKEN = os.environ.get('VERIFY_TOKEN')
     ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
 
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = join(dirname(__file__), os.environ["GOOGLE_SERVICE_ACCOUNT_KEYS"])
+
+
     DEBUG = False
     TESTING = False
 
@@ -23,10 +29,22 @@ class Config:
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)
     SESSION_COOKIE_NAME = 'session'
 
+    @classmethod
+    def init_app(cls, app):
+        pass
+
 
 class DevelopmentConfig(Config):
     """Development configuration"""
     DEBUG = True
+
+    @classmethod
+    def init_app(cls, app):
+        super(DevelopmentConfig, cls).init_app(app)
+
+        syslog_handler = SysLogHandler()
+        syslog_handler.setLevel(logging.WARNING)
+        app.logger.addHandler(syslog_handler)
 
 
 class TestingConfig(Config):

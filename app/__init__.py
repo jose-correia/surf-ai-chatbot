@@ -3,6 +3,7 @@ import flask as f
 from config import config
 from app.bot import bp_surf_bot
 from flask_wtf.csrf import CSRFProtect
+from config import config
 
 csrf = CSRFProtect()
 
@@ -12,7 +13,7 @@ def create_app(config_name):
 
     app = f.Flask(__name__)
     app.config.from_object(env_config)
-    app.url_map.strict_slashes = False
+    config[config_name].init_app(app)
         
     csrf.init_app(app)
 
