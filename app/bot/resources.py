@@ -13,7 +13,7 @@ class WebhookVerification(Resource):
 
     def get(self):
         logger.error('Received verification request')
-        
+
         hub_mode = request.args.get('hub.mode')
         verify_token = request.args.get('hub.verify_token')
         challenge = request.args.get('hub.challenge')
@@ -48,6 +48,7 @@ class ReceiveEvent(Resource):
 
             # send data
             if forecast:
+                response = BuildResponseService(forecast).call()
                 MessageHandler.send_message(user_id, forecast)
 
         return Response(response="EVENT RECEIVED",status=200)
