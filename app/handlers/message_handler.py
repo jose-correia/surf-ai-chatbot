@@ -1,6 +1,7 @@
 # SERVICES
 from app.services.dialogflow.detect_intent_service import DetectIntentService
 import requests
+from flask import current_app
 
 
 class MessageHandler(object):

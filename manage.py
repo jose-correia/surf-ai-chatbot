@@ -56,5 +56,5 @@ def shell_context():
 
 
 if __name__ == '__main__':
-    manager.add_command('runserver', Server('127.0.0.1', port=8003))
+    manager.add_command('runserver', Server('127.0.0.1', port=8080))
     manager.run()
