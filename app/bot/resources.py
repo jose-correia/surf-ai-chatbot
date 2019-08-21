@@ -47,9 +47,9 @@ class ReceiveEvent(Resource):
             MessageHandler.send_message(user_id, intent.fulfillment_text)
 
             # send data
-            if forecast:
-                response = BuildResponseService(forecast).call()
-                MessageHandler.send_message(user_id, forecast)
+            # if forecast:
+            #     response = BuildResponseService(forecast).call()
+            #     MessageHandler.send_message(user_id, forecast)
 
         return Response(response="EVENT RECEIVED",status=200)
 
