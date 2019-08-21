@@ -35,7 +35,7 @@ class Config:
 
     LOCATION_AND_PARAMS_INTENTS = ['Specific Weather Parameters Intent']  
 
-    NO_FORECAST_RESPONSE_INTENTS = ['Default Welcome Intent', 'Default Fallback Intent']
+    FORECAST_RESPONSE_INTENTS = ['Location Forecast Intent', 'Specific Weather Parameters Intent']
     
     SUPPORTED_LOCATIONS = {
         'Costa da Caparica': {

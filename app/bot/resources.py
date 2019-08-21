@@ -38,7 +38,7 @@ class ReceiveEvent(Resource):
             
             intent = IntentHandler.detect_intent(user_id, user_message)
             
-            if intent.intent.display_name not in current_app.config.get('NO_FORECAST_RESPONSE_INTENTS'):
+            if intent.intent.display_name in current_app.config.get('FORECAST_RESPONSE_INTENTS'):
                 forecast = IntentHandler.get_forecast_based_on_intent(intent)
             else:
                 forecast = None
