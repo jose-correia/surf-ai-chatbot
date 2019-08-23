@@ -8,7 +8,7 @@ class WeatherForecastHandler(object):
     _headers = {'Authorization': os.environ.get('STORMGLASS_API_KEY')}
 
     @staticmethod
-    def get_location_forecast(self, latitude, longitude):
+    def get_location_forecast(self, latitude, longitude, time):
 
         params = [{'waveHeight', 'airTemperature'}]
 
@@ -20,7 +20,7 @@ class WeatherForecastHandler(object):
             return response.json()
 
     @staticmethod
-    def get_location_parameters(self, latitude, longitude, parameters):
+    def get_location_parameters(self, latitude, longitude, parameters, time):
 
         url = f'{self._base_url}?lat={latitude}&lng={longitude}'
     
