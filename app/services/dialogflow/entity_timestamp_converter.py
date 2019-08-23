@@ -51,18 +51,26 @@ class EntityTimestampConverter(object):
 
     def get_start_timestamp(self, date_entity, time_entity):
         
-        start_date = self.DATETIMES[date_entity]['start']
+        if date_entity in self.DATETIMES:
+            start_date = self.DATETIMES[date_entity]['start']
 
-        start_time = self.TIME_INTERVALS[time_entity]['start']
+            if time_entity in self.TIME_INTERVALS:
+                start_time = self.TIME_INTERVALS[time_entity]['start']
 
-        start_datetime = start_date.replace(hour=start_time)
-        return start_datetime
+                start_datetime = start_date.replace(hour=start_time)
+                return start_datetime
+            return start_date
+        return None
 
     def get_end_timestamp(self, date_entity, time_entity):
         
-        end_date = self.DATETIMES[date_entity]['end']
+        if date_entity in self.DATETIMES:
+            end_date = self.DATETIMES[date_entity]['end']
 
-        end_time = self.TIME_INTERVALS[time_entity]['end']
+            if time_entity in self.TIME_INTERVALS:
+                end_time = self.TIME_INTERVALS[time_entity]['end']
 
-        end_datetime = end_date.replace(hour=end_time)
-        return end_datetime
+                end_datetime = end_date.replace(hour=end_time)
+                return end_datetime
+            return end_date
+        return None
