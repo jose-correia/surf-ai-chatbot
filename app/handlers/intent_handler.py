@@ -41,8 +41,17 @@ class IntentHandler(object):
 
         return (start, end)
 
-    @classmethod
-    def get_forecast_based_on_intent(cls, intent):
+    @classmethod 
+    def get_intent_parameters(cls, intent):
+        parameters = []
+
+        for parameter in intent.parameters.fields['Weather_Parameters'].list_value:
+            parameters.append(parameter)
+
+        return parameters
+
+    @staticmethod
+    def get_forecast_based_on_intent(self, intent):
 
         location = self.get_intent_location(intent)
         latitude, longitude = GetLocalCoordService(location).call()
