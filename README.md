@@ -11,8 +11,11 @@ The bot currently supports forecast for the following beaches:
 
 Queries can be done asking questions like:
 `How is Costa da Caparica in 2 days?`
+
 `Tell me how's wave height at Carcavelos tomorrow in the morning`
+
 `Forecast for the next week on Guincho`
+
 `How will the wind be at Carcavelos by the end of the day?`
 
 ## Setup
