@@ -30,7 +30,7 @@ class IntentHandler(object):
         for parameter in intent.parameters.fields['Date'].list_value:
             date_entity = parameter
 
-        if date_entity is None
+        if date_entity is None:
             date_entity = 'today'
 
         if time_entity is None:
