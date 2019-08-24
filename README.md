@@ -9,7 +9,7 @@ The bot currently supports forecast for the following beaches:
 - Costa da Caparica
 - Guincho
 
-This API integrates with **Google's Dialogflow**, which resourtes to Machine Learning algorithms to train the bot in order to understand
+This API integrates with [Google Dialogflow](https://dialogflow.com), which resourtes to Machine Learning algorithms to train the bot in order to understand
 and learn what is spoken to him.
 
 Queries can be done asking questions like:
