@@ -25,7 +25,9 @@ Queries can be done asking questions like:
 ## Setup
 
 This project uses Python3.7 and the Flask Framework.
-External services include **Google Dialogflow** and the **Stormglass API**
+
+External services include **Google Dialogflow** and the **Stormglass API**.
+
 Instaling all the dependencies and running the server:
 
 ```bash
