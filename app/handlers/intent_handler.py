@@ -23,17 +23,17 @@ class IntentHandler(object):
         
         time_entity = None
         date_entity = None
-        
+
         for parameter in intent.parameters.fields['Time'].list_value:
             time_entity = parameter
 
         for parameter in intent.parameters.fields['Date'].list_value:
             date_entity = parameter
 
-        if date_entity == None
+        if date_entity is None
             date_entity = 'today'
 
-        if time_entity == None:
+        if time_entity is None:
             time_entity = 'all day'
 
         start = EntityTimestampConverter().get_start_timestamp(date_entity, time_entity)
