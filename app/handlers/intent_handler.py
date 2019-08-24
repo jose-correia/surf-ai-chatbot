@@ -20,17 +20,20 @@ class IntentHandler(object):
 
     @classmethod 
     def get_intent_timedelta(cls, intent):
-
+        
+        time_entity = None
+        date_entity = None
+        
         for parameter in intent.parameters.fields['Time'].list_value:
             time_entity = parameter
 
         for parameter in intent.parameters.fields['Date'].list_value:
             date_entity = parameter
 
-        if date_entity is None
+        if date_entity == None
             date_entity = 'today'
 
-        if time_entity is None:
+        if time_entity == None:
             time_entity = 'all day'
 
         start = EntityTimestampConverter().get_start_timestamp(date_entity, time_entity)
