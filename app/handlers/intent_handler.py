@@ -42,7 +42,7 @@ class IntentHandler(object):
         return (start, end)
 
     @classmethod
-    def get_forecast_based_on_intent(intent):
+    def get_forecast_based_on_intent(cls, intent):
 
         location = self.get_intent_location(intent)
         latitude, longitude = GetLocalCoordService(location).call()
