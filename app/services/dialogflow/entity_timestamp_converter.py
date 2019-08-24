@@ -24,6 +24,10 @@ class EntityTimestampConverter(object):
                 'start': 15,
                 'end': 18
             }
+            'all day': {
+                'start': 7,
+                'end': 18
+            }
         }
 
         self.DATETIMES = {

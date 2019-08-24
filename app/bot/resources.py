@@ -38,18 +38,16 @@ class ReceiveEvent(Resource):
             
             intent = IntentHandler.detect_intent(user_id, user_message)
             
-            # if intent.intent.display_name in current_app.config.get('FORECAST_RESPONSE_INTENTS'):
-            #     forecast = IntentHandler.get_forecast_based_on_intent(intent)
-            # else:
-            #     forecast = None
+            if intent.intent.display_name in current_app.config.get('FORECAST_RESPONSE_INTENTS'):
+                forecast = IntentHandler.get_forecast_based_on_intent(intent)
+            else:
+                forecast = None
 
-            # send intent response
             MessageHandler.send_message(user_id, intent.fulfillment_text)
 
-            # send data
-            # if forecast:
-            #     response = BuildResponseService(forecast).call()
-            #     MessageHandler.send_message(user_id, forecast)
+            if forecast:
+                #response = BuildResponseService(forecast).call()
+                MessageHandler.send_message(user_id, str(forecast))
 
         return Response(response="EVENT RECEIVED",status=200)
 
