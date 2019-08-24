@@ -9,7 +9,11 @@ The bot currently supports forecast for the following beaches:
 - Costa da Caparica
 - Guincho
 
+This API integrates with **Google's Dialogflow**, which resourtes to Machine Learning algorithms to train the bot in order to understand
+and learn what is spoken to him.
+
 Queries can be done asking questions like:
+
 `How is Costa da Caparica in 2 days?`
 
 `Tell me how's wave height at Carcavelos tomorrow in the morning`
@@ -20,8 +24,8 @@ Queries can be done asking questions like:
 
 ## Setup
 
-This project uses Python3.7
-
+This project uses Python3.7 and the Flask Framework.
+External services include **Google Dialogflow** and the **Stormglass API**
 Instaling all the dependencies and running the server:
 
 ```bash
