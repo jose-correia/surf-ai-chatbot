@@ -4,6 +4,7 @@ import json
 
 from app.handlers.message_handler import MessageHandler
 from app.handlers.intent_handler import IntentHandler
+from app.handlers.intent_forecast_middleware import IntentForecastMiddleware
 
 import logging
 logger = logging.getLogger(__name__)
@@ -39,7 +40,7 @@ class ReceiveEvent(Resource):
             intent = IntentHandler.detect_intent(user_id, user_message)
             
             if intent.intent.display_name in current_app.config.get('FORECAST_RESPONSE_INTENTS'):
-                forecast = IntentHandler.get_forecast_based_on_intent(intent)
+                forecast = IntentForecastMiddleware.get_forecast_based_on_intent(intent)
             else:
                 forecast = None
 

@@ -49,23 +49,4 @@ class IntentHandler(object):
             parameters.append(parameter)
 
         return parameters
-
-    @staticmethod
-    def get_forecast_based_on_intent(self, intent):
-
-        location = self.get_intent_location(intent)
-        latitude, longitude = GetLocalCoordService(location).call()
-
-        display_name = intent.intent.display_name
-
-        (start, end) = self.get_intent_timedelta(intent)
-
-        if display_name in current_app.config.get('LOCATION_INTENTS'):
-            forecast = WeatherForecastHandler.get_location_forecast(latitude, longitude, end, start)
-
-        elif display_name in current_app.config.get('LOCATION_AND_PARAMS_INTENTS'):
-            parameters = self.get_intent_parameters(intent)
-            forecast = WeatherForecastHandler.get_location_parameters(latitude, longitude, parameters, end, start)
-
-        return forecast
         
