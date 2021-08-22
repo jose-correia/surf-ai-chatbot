@@ -1,5 +1,4 @@
 # SurfAi Chatbot
-![wave-logo](wave.png)
 <p align="center">
   <img src="wave.png">
 </p>
