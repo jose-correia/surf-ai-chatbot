@@ -1,8 +1,6 @@
-
-
 import dialogflow_v2 as dialogflow
 from flask import current_app
-import os
+
 
 class BuilResponseService():
     """
@@ -33,9 +31,9 @@ class BuilResponseService():
         self.forecast = forecast
 
     def call(self) -> bool:
-        
+
         for hour in forecast['hours']:
             for parameter in hour:
-                
+
         return response.query_result
-    
+

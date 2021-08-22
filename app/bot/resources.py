@@ -5,12 +5,61 @@ import json
 from app.handlers.message_handler import MessageHandler
 from app.handlers.intent_handler import IntentHandler
 from app.handlers.intent_forecast_middleware import IntentForecastMiddleware
+from app.values.request_weather_value import RequestWeatherValue
+from app.values.response_value import ResponseValue
+from app.values.errors import (
+    WeatherAPIError,
+    LocationNotFoundError,
+)
 
 import logging
 logger = logging.getLogger(__name__)
 
 
-class WebhookVerification(Resource):
+class BeachWeather(Resource):
+
+    def post(self):
+        logger.info('Requested beach weather')
+
+        data = json.loads(request.data.decode('utf-8'))
+
+        logger.info('Data: {}'.format(data))
+
+        request_value = RequestWeatherValue.parse_obj(data)
+
+        try:
+            intent = IntentHandler.detect_intent(
+                request_value.sender_id,
+                request_value.text,
+            )
+            logger.info(intent)
+
+            logger.info("Intent: {}".format(intent.fulfillment_text))
+
+            if intent.intent.display_name in current_app.config.get('FORECAST_RESPONSE_INTENTS'):
+                forecast = IntentForecastMiddleware.get_forecast_based_on_intent(intent)
+                response = forecast
+            else:
+                response = {"error": "Intent not configured"}
+
+            response = ResponseValue(
+                intent=intent.intent.display_name,
+                text=request_value.text,
+                response=intent.fulfillment_text,
+                data=forecast,
+            ).dict()
+
+        except (WeatherAPIError, LocationNotFoundError) as error:
+            response = error.to_dict()
+
+        return Response(
+            response=json.dumps(response),
+            status=200,
+            mimetype='application/json'
+        )
+
+
+class MessengerWebhookVerification(Resource):
 
     def get(self):
         logger.error('Received verification request')
@@ -22,23 +71,22 @@ class WebhookVerification(Resource):
         if hub_mode == 'subscribe' and verify_token == current_app.config.get('VERIFY_TOKEN'):
             logger.error(f'Received token: {verify_token} and challenge: {challenge}')
             return Response(response=challenge, status=200)
-        
+
         logger.error('Failed to validade')
         return Response(response="Verification failed",status=403)
 
 
-class ReceiveEvent(Resource):
+class ReceiveMessengerEvent(Resource):
 
     def post(self):
         logger.error('Received event')
         data = json.loads(request.data.decode('utf-8'))
 
         for entry in data['entry']:
-            user_message = entry['messaging'][0]['message']['text']
-            user_id = entry['messaging'][0]['sender']['id']
-            
-            intent = IntentHandler.detect_intent(user_id, user_message)
-            
+            request_value = RequestWeatherValue.from_messenger_event(data)
+
+            intent = IntentHandler.detect_intent(request_value.text, request_value.sender_id)
+
             if intent.intent.display_name in current_app.config.get('FORECAST_RESPONSE_INTENTS'):
                 forecast = IntentForecastMiddleware.get_forecast_based_on_intent(intent)
             else:
@@ -51,27 +99,6 @@ class ReceiveEvent(Resource):
                 MessageHandler.send_message(user_id, str(forecast))
 
         return Response(response="EVENT RECEIVED",status=200)
-
-
-class ReceiveDevEvent(Resource):
-
-    def post(self):
-        # custom route for local development
-        data = json.loads(request.data.decode('utf-8'))
-
-        logger.error('Dev Event')
-
-        user_message = data['entry'][0]['messaging'][0]['message']['text']
-        user_id = data['entry'][0]['messaging'][0]['sender']['id']
-        
-        intent = IntentHandler.detect_intent(user_id, user_message)
-
-        response = intent.fulfillment_text
-        return Response(
-            response=json.dumps(response),
-            status=200,
-            mimetype='application/json'
-        )
 
 
 class Privacy(Resource):

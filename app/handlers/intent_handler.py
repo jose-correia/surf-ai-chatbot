@@ -10,17 +10,15 @@ class IntentHandler(object):
 
     @classmethod
     def detect_intent(cls, user_id, message):
-        return DetectIntentService(user_id, message, 'en').call() 
+        return DetectIntentService(user_id, message, 'en').call()
 
-    @classmethod 
-    def get_intent_location(cls, intent):
-        for parameter in intent.parameters.fields['Locations']:
-            if parameter.string_value is not None:
-                return parameter.string_value 
+    @classmethod
+    def get_intent_location(cls, intent) -> str:
+        return intent.parameters.fields["Locations"].string_value
 
-    @classmethod 
+    @classmethod
     def get_intent_timedelta(cls, intent):
-        
+
         time_entity = None
         date_entity = None
 
@@ -41,7 +39,7 @@ class IntentHandler(object):
 
         return (start, end)
 
-    @classmethod 
+    @classmethod
     def get_intent_parameters(cls, intent):
         parameters = []
 
@@ -49,4 +47,3 @@ class IntentHandler(object):
             parameters.append(parameter)
 
         return parameters
-        

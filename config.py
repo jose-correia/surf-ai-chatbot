@@ -18,10 +18,19 @@ class Config:
     VERIFY_TOKEN = os.environ.get('VERIFY_TOKEN')
     ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
 
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = join(dirname(__file__), os.environ["GOOGLE_SERVICE_ACCOUNT_KEYS"])
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = join(
+        dirname(__file__),
+        os.environ["GOOGLE_SERVICE_ACCOUNT_KEYS"],
+    )
 
     STORMGLASS_URL = os.environ.get('STORMGLASS_URL')
     STORMGLASS_API_KEY = os.environ.get('STORMGLASS_API_KEY')
+
+    DIALOGFLOW_URL = os.environ.get('DIALOGFLOW_URL')
+    DIALOGFLOW_PROJECT_ID = os.environ.get('DIALOGFLOW_PROJECT_ID')
+    DIALOGFLOW_CLIENT_ACCESS_TOKEN = os.environ.get(
+        'DIALOGFLOW_CLIENT_ACCESS_TOKEN',
+    )
 
     DEBUG = False
     TESTING = False
@@ -33,10 +42,13 @@ class Config:
 
     LOCATION_INTENTS = ['Location Forecast Intent']
 
-    LOCATION_AND_PARAMS_INTENTS = ['Specific Weather Parameters Intent']  
+    LOCATION_AND_PARAMS_INTENTS = ['Specific Weather Parameters Intent']
 
-    FORECAST_RESPONSE_INTENTS = ['Location Forecast Intent', 'Specific Weather Parameters Intent']
-    
+    FORECAST_RESPONSE_INTENTS = [
+        'Location Forecast Intent',
+        'Specific Weather Parameters Intent',
+    ]
+
     SUPPORTED_LOCATIONS = {
         'Costa da Caparica': {
             'latitude': 38.612310,

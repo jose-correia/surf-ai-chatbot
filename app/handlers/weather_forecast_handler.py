@@ -1,37 +1,52 @@
 # SERVICES
+from flask import current_app as app
+from typing import List
+from app.values.errors import WeatherAPIError
 import requests
-import os
+import logging
+
+
+logger = logging.getLogger()
 
 
 class WeatherForecastHandler(object):
-    _base_url = os.environ.get('STORMGLASS_URL')
-    _headers = {'Authorization': os.environ.get('STORMGLASS_API_KEY')}
+    _base_url = app.config.get('STORMGLASS_URL')
+    _headers = {'Authorization': app.config.get('STORMGLASS_API_KEY')}
+    _default_parameters = ['currentSpeed', 'swellHeight', 'swellPeriod', 'waveHeight', 'wavePeriod', 'airTemperature', 'waterTemperature']
 
-    @staticmethod
-    def get_location_forecast(self, latitude, longitude, time, end, start):
+    def get_location_parameters(self, latitude, longitude, end, start, parameters: List[str] = []):
+        if not parameters:
+            parameters = self._default_parameters
 
-        params = [{'waveHeight', 'airTemperature'}]
+        params = ''
+        for parameter in parameters:
+            params = params + parameter + ","
 
-        url = f'{self._base_url}?lat={latitude}&lng={longitude}&start={start}&end={end}'
+        params = params[:len(params)-1]
 
-        logger.info(url)
+        url = f'{self._base_url}?lat={latitude}&lng={longitude}&start={start}&end={end}&params={params}'
 
-        response = requests.get(url, headers=self._headers, params=params)
+        logger.info("Requesting forecast to API url: {}".format(url))
 
-        if response.status_code == 200:
-            return response.json()
+        try:
+            data = self.request(url)
+        except Exception as error:
+            logger.error(error)
+            raise WeatherAPIError()
 
-    @staticmethod
-    def get_location_parameters(self, latitude, longitude, parameters, end, start):
+        return data
 
-        url = f'{self._base_url}?lat={latitude}&lng={longitude}&start={start}&end={end}'
-    
-        response = requests.get(url, headers=self.self._headers, params=parameters)
+    def request(self, url: str):
+        response = requests.get(
+            url,
+            headers=self._headers,
+        )
 
-        if response.status_code == 200:
-            return response.json()
+        response.raise_for_status()
+
+        return response.json()
 
     # @staticmethod
     # def get_location_forecast_interval(self, latitude, longitude, time):
 
-    
+

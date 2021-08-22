@@ -15,15 +15,18 @@ class IntentForecastMiddleware(object):
 
         # get timedelta
         (start, end) = IntentHandler.get_intent_timedelta(intent)
-        
+
         display_name = intent.intent.display_name
 
-        if display_name in current_app.config.get('LOCATION_INTENTS'):
-            forecast = WeatherForecastHandler.get_location_forecast(latitude, longitude, end, start)
+        parameters = []
 
-        elif display_name in current_app.config.get('LOCATION_AND_PARAMS_INTENTS'):
+        if display_name in current_app.config.get('LOCATION_AND_PARAMS_INTENTS'):
             parameters = IntentHandler.get_intent_parameters(intent)
-            forecast = WeatherForecastHandler.get_location_parameters(latitude, longitude, parameters, end, start)
 
-        return forecast
-        
+        return WeatherForecastHandler().get_location_parameters(
+            latitude=latitude,
+            longitude=longitude,
+            end=end,
+            start=start,
+            parameters=parameters,
+        )

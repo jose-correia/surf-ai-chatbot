@@ -1,10 +1,10 @@
 FROM python:3.7-alpine
 
-RUN mkdir -p /home/menesesjmmc/surf_bot
+RUN mkdir -p /surf_bot
 
-WORKDIR /home/menesesjmmc/surf_bot
+WORKDIR /surf_bot
 
-ADD . /home/menesesjmmc/surf_bot
+ADD . /surf_bot
 
 RUN pip install --no-cache-dir -r requirements.txt
 
