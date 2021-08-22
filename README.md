@@ -1,7 +1,7 @@
 # SurfAi Chatbot
-![wave-logo](wave.jpg)
+![wave-logo](wave.png)
 <p align="center">
-  <img src="wave.jpg">
+  <img src="wave.png">
 </p>
 
 A chatbot system that provides helpful data related to surfing conditions. The bot artificial inteligence knowledge base is built on top of [Google Dialogflow](https://dialogflow.com) and all the weather data is fetched from the [Stormglass API](https://stormglass.io).
