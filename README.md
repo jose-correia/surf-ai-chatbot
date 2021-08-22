@@ -4,6 +4,9 @@
 </p>
 
 A chatbot system that provides helpful data related to surfing conditions. The bot artificial inteligence knowledge base is built on top of [Google Dialogflow](https://dialogflow.com) and all the weather data is fetched from the [Stormglass API](https://stormglass.io).
+[Google Dialogflow](https://dialogflow.com) can be used to train machine learning classifiers to be able to detect the intent of a given question and extract important 
+entities from it (eg: location, weather parameter).
+
 
 ## Example interactions
 `How is the weather in Costa da Caparica?`
@@ -14,6 +17,47 @@ A chatbot system that provides helpful data related to surfing conditions. The b
 
 `Air temperature at Carcavelos?`
 
+## REST API
+### Example request
+```
+curl --location --request POST 'http://127.0.0.1:8080/surf_bot/beach' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "text": "Swell height at Guincho",
+    "sender_id": "jose"
+}'
+```
+
+### Example response
+```
+{
+    "intent": "Specific Weather Parameters Intent",
+    "text": "Swell height at Guincho",
+    "response": "The swellHeight in Guincho will be:",
+    "data": {
+        "hours": [
+            {
+                "swellHeight": [
+                    {
+                        "source": "sg",
+                        "value": 0.7
+                    },
+                    {
+                        "source": "icon",
+                        "value": 1.14
+                    },
+                    {
+                        "source": "meteo",
+                        "value": 0.7
+                    }
+                ],
+                "time": "2021-08-22T07:00:00+00:00"
+            },
+        ....
+        ],
+    }
+}
+```
 
 ## Supported locations
 ### Portugal:
@@ -21,9 +65,6 @@ A chatbot system that provides helpful data related to surfing conditions. The b
 - Costa da Caparica
 - Guincho
 
-
-This API integrates with [Google Dialogflow](https://dialogflow.com), which trains machine learning classifiers to be able to detect the intent of a given question and extract important 
-entities from it (eg: location, weather parameter).
 
 ## Setup
 This project uses Python3.7 and the Flask Framework.
@@ -44,7 +85,7 @@ APP_ENV=" " - development|testing|production
 
 # Facebook
 VERIFY_TOKEN=" " - token used to verify app with Facebook (random)
-ACCESS_TOKEN="" - rovided by Facebook
+ACCESS_TOKEN="" - provided by Facebook
 
 # Stormglass
 STORMGLASS_URL="https://api.stormglass.io/v1/weather/point"
