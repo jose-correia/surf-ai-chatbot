@@ -1,3 +1,9 @@
+FROM ubuntu
+
+RUN apt-get update && \
+    apt-get -y install gcc mono-mcs && \
+    rm -rf /var/lib/apt/lists/*
+
 FROM python:3.7-alpine
 
 RUN mkdir -p /surf_bot
