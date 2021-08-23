@@ -1,5 +1,6 @@
 from flask_restful import Resource
-from flask import request, Response, current_app
+from flask import request, Response, current_app as app
+
 import json
 
 from app.handlers.message_handler import MessageHandler
@@ -58,6 +59,46 @@ class BeachWeather(Resource):
             status=200,
             mimetype='application/json'
         )
+
+
+class SupportedParameters(Resource):
+
+    def get(self):
+        logger.error('Received get_parameters request')
+
+        parameters = []
+        for key, value in app.config.get("SUPPORTED_PARAMETERS").items():
+            parameters.append(key)
+
+        response = {
+            "data": parameters,
+        }
+        return Response(
+            response=json.dumps(response),
+            status=200,
+            mimetype='application/json'
+        )
+
+
+class SupportedLocations(Resource):
+
+    def get(self):
+        logger.error('Received get_locations request')
+
+        parameters = []
+        for key, value in app.config.get("SUPPORTED_LOCATIONS").items():
+            parameters.append(key)
+
+        response = {
+            "data": parameters,
+        }
+        return Response(
+            response=json.dumps(response),
+            status=200,
+            mimetype='application/json'
+        )
+
+
 
 
 class MessengerWebhookVerification(Resource):

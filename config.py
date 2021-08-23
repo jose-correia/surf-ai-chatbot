@@ -49,6 +49,16 @@ class Config:
         'Specific Weather Parameters Intent',
     ]
 
+    SUPPORTED_PARAMETERS = {
+        'Current Speed': 'currentSpeed',
+        'Swell Height': 'swellHeight',
+        'Swell Period': 'swellPeriod',
+        'Wave Height': 'waveHeight',
+        'Wave Period': 'wavePeriod',
+        'Air Temperature': 'airTemperature',
+        'Water Temperature': 'waterTemperature',
+    }
+
     SUPPORTED_LOCATIONS = {
         'Costa da Caparica': {
             'latitude': 38.612310,
@@ -61,6 +71,38 @@ class Config:
         'Guincho': {
             'latitude': 28.926815,
             'longitude': -13.634419
+        },
+        'Ericeira': {
+            'latitude': 38.966493,
+            'longitude': -9.417617,
+        },
+        'Nazare': {
+            'latitude': 39.596779,
+            'longitude': -9.069571,
+        },
+        'Peniche': {
+            'latitude': 39.361859,
+            'longitude': -9.368651,
+        },
+        'Figueira da Foz': {
+            'latitude': 40.15085,
+            'longitude': -8.86179,
+        },
+        'Arrifana': {
+            'latitude': 40.91565,
+            'longitude': -8.49657,
+        },
+        'Sagres': {
+            'latitude': 37.068012,
+            'longitude': -8.830784,
+        },
+        "Ribeira d'Ilhas": {
+            'latitude': 38.987704,
+            'longitude': -9.418905,
+        },
+        'Amado': {
+            'latitude': 37.16949527,
+            'longitude': -8.90052003,
         }
     }
 

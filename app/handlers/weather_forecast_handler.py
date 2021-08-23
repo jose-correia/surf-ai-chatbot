@@ -12,11 +12,13 @@ logger = logging.getLogger()
 class WeatherForecastHandler(object):
     _base_url = app.config.get('STORMGLASS_URL')
     _headers = {'Authorization': app.config.get('STORMGLASS_API_KEY')}
-    _default_parameters = ['currentSpeed', 'swellHeight', 'swellPeriod', 'waveHeight', 'wavePeriod', 'airTemperature', 'waterTemperature']
+    _default_parameters = app.config.get("SUPPORTED_PARAMETERS")
 
     def get_location_parameters(self, latitude, longitude, end, start, parameters: List[str] = []):
         if not parameters:
-            parameters = self._default_parameters
+            parameters = []
+            for key, value in self._default_parameters.items():
+                parameters.append(value)
 
         params = ''
         for parameter in parameters:
