@@ -1,6 +1,7 @@
 import flask
 from config import config
 from flask_wtf.csrf import CSRFProtect
+from flask_cors import CORS
 
 csrf = CSRFProtect()
 
@@ -11,6 +12,8 @@ def create_app(config_name):
     app = flask.Flask(__name__)
     app.config.from_object(env_config)
     config[config_name].init_app(app)
+
+    CORS(app)
 
     csrf.init_app(app)
 
