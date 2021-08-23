@@ -38,7 +38,7 @@ class BeachWeather(Resource):
             logger.info("Intent: {}".format(intent.fulfillment_text))
 
             forecast = {}
-            if intent.intent.display_name in current_app.config.get('FORECAST_RESPONSE_INTENTS'):
+            if intent.intent.display_name in app.config.get('FORECAST_RESPONSE_INTENTS'):
                 forecast = IntentForecastMiddleware.get_forecast_based_on_intent(intent)
                 response = forecast
             else:
@@ -110,7 +110,7 @@ class MessengerWebhookVerification(Resource):
         verify_token = request.args.get('hub.verify_token')
         challenge = request.args.get('hub.challenge')
 
-        if hub_mode == 'subscribe' and verify_token == current_app.config.get('VERIFY_TOKEN'):
+        if hub_mode == 'subscribe' and verify_token == app.config.get('VERIFY_TOKEN'):
             logger.error(f'Received token: {verify_token} and challenge: {challenge}')
             return Response(response=challenge, status=200)
 
@@ -129,7 +129,7 @@ class ReceiveMessengerEvent(Resource):
 
             intent = IntentHandler.detect_intent(request_value.text, request_value.sender_id)
 
-            if intent.intent.display_name in current_app.config.get('FORECAST_RESPONSE_INTENTS'):
+            if intent.intent.display_name in app.config.get('FORECAST_RESPONSE_INTENTS'):
                 forecast = IntentForecastMiddleware.get_forecast_based_on_intent(intent)
             else:
                 forecast = None
