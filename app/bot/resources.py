@@ -36,6 +36,7 @@ class BeachWeather(Resource):
 
             logger.info("Intent: {}".format(intent.fulfillment_text))
 
+            forecast = {}
             if intent.intent.display_name in current_app.config.get('FORECAST_RESPONSE_INTENTS'):
                 forecast = IntentForecastMiddleware.get_forecast_based_on_intent(intent)
                 response = forecast
