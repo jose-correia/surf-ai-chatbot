@@ -8,6 +8,7 @@ from app.handlers.intent_handler import IntentHandler
 from app.handlers.intent_forecast_middleware import IntentForecastMiddleware
 from app.values.request_weather_value import RequestWeatherValue
 from app.values.response_value import ResponseValue
+from app.values.weather_data_value import WeatherDataValue
 from app.values.errors import (
     WeatherAPIError,
     LocationNotFoundError,
@@ -44,11 +45,12 @@ class BeachWeather(Resource):
             else:
                 response = {"error": "Intent not configured"}
 
+
             response = ResponseValue(
                 intent=intent.intent.display_name,
                 text=request_value.text,
                 response=intent.fulfillment_text,
-                data=forecast,
+                data=WeatherDataValue.from_stormglass_response(forecast).dict(),
             ).dict()
 
         except (WeatherAPIError, LocationNotFoundError) as error:
