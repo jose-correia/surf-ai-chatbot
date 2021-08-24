@@ -11,7 +11,6 @@ logger = logging.getLogger()
 
 class WeatherForecastHandler(object):
     _base_url = app.config.get('STORMGLASS_URL')
-    _headers = {'Authorization': app.config.get('STORMGLASS_API_KEY')}
     _default_parameters = app.config.get("SUPPORTED_PARAMETERS")
 
     def get_location_parameters(self, latitude, longitude, end, start, parameters: List[str] = []):
@@ -39,10 +38,19 @@ class WeatherForecastHandler(object):
         return data
 
     def request(self, url: str):
+        headers = {'Authorization': app.config.get("STORMGLASS_API_KEY")}
+
         response = requests.get(
             url,
-            headers=self._headers,
+            headers=headers,
         )
+
+        if response.status_code == 402:
+            headers = {'Authorization': app.config.get("STORMGLASS_API_KEY_2")}
+            response = requests.get(
+                url,
+                headers=headers,
+            )
 
         response.raise_for_status()
 

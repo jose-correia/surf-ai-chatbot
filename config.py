@@ -25,6 +25,7 @@ class Config:
 
     STORMGLASS_URL = os.environ.get('STORMGLASS_URL')
     STORMGLASS_API_KEY = os.environ.get('STORMGLASS_API_KEY')
+    STORMGLASS_API_KEY_2 = os.environ.get('STORMGLASS_API_KEY_2')
 
     DIALOGFLOW_URL = os.environ.get('DIALOGFLOW_URL')
     DIALOGFLOW_PROJECT_ID = os.environ.get('DIALOGFLOW_PROJECT_ID')
