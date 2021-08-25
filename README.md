@@ -35,32 +35,15 @@ curl --location --request POST 'http://127.0.0.1:8080/surf_bot/beach' \
     "text": "Swell height at Guincho",
     "response": "The swellHeight in Guincho will be:",
     "data": {
-        "hours": [7, 8],
+        "hours": [7, 8, 9, 10],
         "parameters": {
-            "swellHeight": [1.05, [1.06](1.06)],
+            "swellHeight": [
+                1.05,
+                1.06,
+                1.06,
+                1.08,
+            ]
         }
-    }
-    "data": {
-        "hours": [
-            {
-                "swellHeight": [
-                    {
-                        "source": "sg",
-                        "value": 0.7
-                    },
-                    {
-                        "source": "icon",
-                        "value": 1.14
-                    },
-                    {
-                        "source": "meteo",
-                        "value": 0.7
-                    }
-                ],
-                "time": "2021-08-22T07:00:00+00:00"
-            },
-        ....
-        ],
     }
 }
 ```
